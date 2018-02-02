@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Web.Redis;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
@@ -26,8 +22,7 @@ namespace Dal
 
         public static Credentials ParseVCAP()
         {
-            var redisSessionStateProvider = new RedisSessionStateProvider();
-            Credentials result = new Credentials();
+            var result = new Credentials();
             //{ "p-redis": [{ "credentials":{"host": "127.0.0.1","port": "1","password": "HelloWorld", "DBUID": "HelloWorld",  "DBHost": "HelloWorld",  "DBPort": "HelloWorld",  "DBPassword": "HelloWorld",
             //  "DBConnectionString": "HelloWorld",  "RedisHost": "HelloWorld", "RedisPort": "HelloWorld", "RedisPassword": "HelloWorld"}}]}
 
@@ -47,11 +42,11 @@ namespace Dal
                         case dbServiceName:
                             {
                                 dynamic credentials = (((JProperty)obj).Value[0] as dynamic).credentials;
-                                result.DBHost = credentials != null ? credentials.host : null;
-                                result.DBPort = credentials != null ? credentials.port : null;
-                                result.DBUID = credentials != null ? credentials.username : null;
-                                result.DBPassword = credentials != null ? credentials.password : null;
-                                result.DBConnectionString = credentials != null ? credentials.connectionString : null;
+                                result.DBHost = credentials?.host;
+                                result.DBPort = credentials?.port;
+                                result.DBUID = credentials?.username;
+                                result.DBPassword = credentials?.password;
+                                result.DBConnectionString = credentials?.connectionString;
                             }
                             break;
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Diagnostics;
 using System.Web.UI;
 
 public partial class _Default : Page
@@ -26,18 +25,7 @@ public partial class _Default : Page
         lblInstanceIndex.Text = Environment.GetEnvironmentVariable("INSTANCE_INDEX");
         lblInstanceStart.Text = DateTime.Now.Subtract(TimeSpan.FromMilliseconds(Environment.TickCount)).ToString();
         lblBoundServices.Text = Environment.GetEnvironmentVariable("VCAP_SERVICES");
-
-        EventLog evtLog = new EventLog("Application")
-        {
-            MachineName = "."  // dot is local machine
-        };  // Event Log type
-        Debug.Write("Test12345");
-        //foreach (EventLogEntry evtEntry in evtLog.Entries)
-        //{
-        //    if(!(evtEntry.EntryType.Equals(EventLogEntryType.Warning)) && !(evtEntry.EntryType.Equals(EventLogEntryType.Information) && !(evtEntry.EntryType.Equals(EventLogEntryType.Error))))
-        //    Response.Write(evtEntry.Message);
-        //}
-        evtLog.Close();
+        
     }
     protected void btnKill_Click(object sender, EventArgs e)
     {
